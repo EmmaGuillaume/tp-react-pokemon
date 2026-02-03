@@ -40,31 +40,9 @@ function Pokedex(props: TPokedexProps) {
               </p>
               <div className="flex flex-wrap gap-4 mt-6">
                 {props.pokedex.map((pokemon, index) => (
-                  <button
-                    onClick={() => {
-                      if (pokemon.numberOfPokemon <= 1) {
-                        props.setPokedexList(
-                          props.pokedex
-                            .filter(
-                              (p) =>
-                                p.pokemon.pokedexId !==
-                                pokemon.pokemon.pokedexId,
-                            )
-                            .map((p) => p.pokemon),
-                        );
-                        return;
-                      }
-                      props.setPokedexList(
-                        props.pokedex
-                          .filter(
-                            (p) =>
-                              p.pokemon.pokedexId !== pokemon.pokemon.pokedexId,
-                          )
-                          .map((p) => p.pokemon),
-                      );
-                    }}
+                  <div
                     key={index}
-                    className="flex flex-col gap-2 items-center mb-2 py-2 px-4 bg-red-500 rounded-md cursor-pointer"
+                    className="flex flex-col gap-2 items-center mb-2 py-2 px-4 bg-red-500 rounded-md"
                   >
                     <img
                       className="size-12"
@@ -78,22 +56,24 @@ function Pokedex(props: TPokedexProps) {
                       <button
                         className="px-2 cursor-pointer bg-red-300 w-full"
                         onClick={() => {
-                          if (pokemon.numberOfPokemon <= 1) return;
+                          if (pokemon.numberOfPokemon <= 0) return;
 
                           props.setPokedex(
-                            props.pokedex.map((p) => {
+                            props.pokedex.map((item) => {
                               if (
-                                p.pokemon.pokedexId ===
+                                item.pokemon.pokedexId ===
                                 pokemon.pokemon.pokedexId
                               ) {
                                 return {
-                                  ...p,
-                                  numberOfPokemon: p.numberOfPokemon - 1,
+                                  ...item,
+                                  numberOfPokemon: item.numberOfPokemon - 1,
                                 };
                               }
-                              return p;
+                              return item;
                             }),
                           );
+
+                          
                         }}
                       >
                         -
@@ -102,18 +82,18 @@ function Pokedex(props: TPokedexProps) {
                       <button
                         className="px-2 cursor-pointer bg-red-300 w-full"
                         onClick={() => {
-                          props.setPokedex(
-                            props.pokedex.map((p) => {
+                         props.setPokedex(
+                            props.pokedex.map((item) => {
                               if (
-                                p.pokemon.pokedexId ===
+                                item.pokemon.pokedexId ===
                                 pokemon.pokemon.pokedexId
                               ) {
                                 return {
-                                  ...p,
-                                  numberOfPokemon: p.numberOfPokemon + 1,
+                                  ...item,
+                                  numberOfPokemon: item.numberOfPokemon + 1,
                                 };
                               }
-                              return p;
+                              return item;
                             }),
                           );
                         }}
@@ -121,7 +101,7 @@ function Pokedex(props: TPokedexProps) {
                         +
                       </button>
                     </div>
-                  </button>
+                  </div>
                 ))}
               </div>
             </div>

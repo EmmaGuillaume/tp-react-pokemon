@@ -73,13 +73,15 @@ function App() {
       });
   }, [generation]);
 
-  console.log(pokemonData);
-
   useEffect(() => {
     if (selectedPokemon.length === 0) return;
+    const lastPokemon = selectedPokemon[selectedPokemon.length - 1];
+    const countOfLastPokemon = selectedPokemon.filter(
+      (p) => p.pokedexId === lastPokemon.pokedexId,
+    ).length;
     const pokedexItem: TPokedex = {
-      pokemon: selectedPokemon[selectedPokemon.length - 1],
-      numberOfPokemon: selectedPokemon.length,
+      pokemon: lastPokemon,
+      numberOfPokemon: countOfLastPokemon,
     };
     setPokedex((prev) => {
       const existing = prev.find(
@@ -94,6 +96,7 @@ function App() {
       }
       return [...prev, pokedexItem];
     });
+    
   }, [selectedPokemon]);
 
   return (
@@ -136,7 +139,8 @@ function App() {
           </select>
 
           <div className="flex gap-2 items-center">
-            <button className="cursor-pointer bg-neutral-700 px-3 py-2 rounded-sm disabled:opacity-50"
+            <button
+              className="cursor-pointer bg-neutral-700 px-3 py-2 rounded-sm disabled:opacity-50"
               disabled={generation <= 1}
               onClick={() => {
                 setGeneration(generation - 1);
@@ -146,7 +150,8 @@ function App() {
             </button>
 
             <p>{generation}</p>
-            <button className="cursor-pointer bg-neutral-700 px-3 py-2 rounded-sm disabled:opacity-50"
+            <button
+              className="cursor-pointer bg-neutral-700 px-3 py-2 rounded-sm disabled:opacity-50"
               disabled={generation >= 8}
               onClick={() => {
                 setGeneration(generation + 1);

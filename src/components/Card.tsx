@@ -3,6 +3,7 @@ import data from "../assets/data";
 import Type from "./TypeCard";
 import type { TpokemonCardProps } from "./TCard";
 import { typeGradients } from "./TCard";
+import { ShoppingCart } from "lucide-react";
 
 type TCardProps = {
   pokemon: TpokemonCardProps;
@@ -15,15 +16,23 @@ function Card(props: TCardProps) {
 
   return (
     <section className="flex justify-center perspective-1000px relative">
-      <button onClick={() => props.setPokedexList([...props.pokedexList, props.pokemon])} className="absolute right-2 top-2 cursor-pointer rounded-full z-40 px-2 py-1 bg-blue-900 text-lg size-8"> <p className="-mt-1">+</p> </button>
       <div
         className={`backface-hidden  w-full transition-all duration-500 ${isFlipped ? "rotate-y-0" : "rotate-y-90 "}`}
       >
+        <button
+          onClick={() =>
+            props.setPokedexList([...props.pokedexList, props.pokemon])
+          }
+          className="absolute right-2 top-2 cursor-pointer rounded-full z-40 px-2 py-1 bg-blue-900 text-lg size-8"
+        >
+          <p className="-ml-0.5">
+            <ShoppingCart className="size-4.5" />
+          </p>
+        </button>
         <figure
           className="rounded-2xl overflow-hidden outline-8 w-96 h-[550px]  cursor-pointer  "
           onClick={() => {
             setIsFlipped(!isFlipped);
-            console.log(props.pokemon.name + " flipped: " + !isFlipped);
           }}
           style={{
             backgroundColor: typeGradients.find(
@@ -110,7 +119,6 @@ function Card(props: TCardProps) {
               className="cursor-pointer bg-blue-900 px-4 py-2 rounded-md"
               onClick={() => {
                 setIsFlipped(!isFlipped);
-                console.log(props.pokemon.name + " flipped: " + !isFlipped);
               }}
             >
               Voir plus
