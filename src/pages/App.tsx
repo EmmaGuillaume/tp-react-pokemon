@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import Card from "./components/Card";
-import Pokedex from "./components/Pokedex";
-import type { TpokemonCardProps } from "./components/TCard";
+import Card from "../components/Card";
+import Pokedex from "../components/Pokedex";
+import type { TpokemonCardProps } from "../components/TCard";
+import Header from "../components/Header";
 const types = [
   "Tous les types",
   "Eau",
@@ -96,7 +97,6 @@ function App() {
       }
       return [...prev, pokedexItem];
     });
-    
   }, [selectedPokemon]);
 
   return (
@@ -107,10 +107,7 @@ function App() {
         pokedexList={selectedPokemon}
         pokedex={pokedex}
       />
-
-      <h1 className="h-fit w-full flex justify-center">
-        <img className="w-1/3" src="/pokemon.png" alt="" />
-      </h1>
+      <Header />
 
       <div className="flex flex-nowrap gap-8 justify-between">
         <input
