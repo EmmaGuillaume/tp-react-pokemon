@@ -130,5 +130,11 @@ const typeGradients: TTypeGradients[] = [
     outline: "#BDBDBD",
     backgroundSecondary: "#E3F2FD",
   },
+  {
+    name: "Psy",
+    background: "#e1c0cc",
+    outline: "#875575",
+    backgroundSecondary: "#f2ecf6",
+  },
 ];
 export { type TpokemonCardProps, type TStats, type TApiTypes, typeGradients };

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+import "../App.css";
 import Card from "../components/Card";
 import Pokedex from "../components/Pokedex";
 import type { TpokemonCardProps } from "../components/TCard";
-import Header from "../components/Header";
 const types = [
   "Tous les types",
   "Eau",
@@ -23,6 +22,7 @@ const types = [
   "Ténèbres",
   "Fée",
   "Normal",
+  "Psy",
 ];
 
 type TPokedex = {
@@ -30,7 +30,7 @@ type TPokedex = {
   numberOfPokemon: number;
 };
 
-function App() {
+function Home() {
   const [pokemonData, setPokemonData] = useState<TpokemonCardProps[]>([]);
   const [selectedType, setSelectedType] = useState("Tous les types");
   const [pokemonListFiltered, setPokemonListFiltered] = useState(pokemonData);
@@ -99,6 +99,20 @@ function App() {
     });
   }, [selectedPokemon]);
 
+  if (isLoading || pokemonData.length === 0) {
+    return (
+      <section className="h-full my-72 w-full flex justify-center items-center">
+        <p className="text-white text-center text-3xl">Chargement...</p>
+        <p className=" opacity-0 text-3xl">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae eos qui
+          ducimus numquam minus quam officia non magni, debitis odio vel fugiat
+          voluptatum commodi temporibus? Voluptates quibusdam assumenda minus
+          maxime?
+        </p>
+      </section>
+    );
+  }
+
   return (
     <section className="flex flex-col gap-12 mb-24 relative">
       <Pokedex
@@ -107,17 +121,9 @@ function App() {
         pokedexList={selectedPokemon}
         pokedex={pokedex}
       />
-      <Header />
 
       <div className="flex flex-nowrap gap-8 justify-between">
-        <input
-          type="text"
-          onChange={(event) => {
-            handleSearchChange(event.target.value);
-          }}
-          className="bg-neutral-700 placeholder:text-neutral-400 px-4 py-2 rounded-full w-1/2"
-          placeholder="Search ..."
-        />
+        
 
         <div className="flex gap-4">
           <select
@@ -159,11 +165,7 @@ function App() {
           </div>
         </div>
       </div>
-      {isLoading && (
-        <div className="w-full flex justify-center h-full">
-          <p className="text-white text-3xl">Chargement...</p>
-        </div>
-      )}
+      {}
       <div className="flex gap-8 flex-wrap justify-between">
         {!pokemonListFiltered.length
           ? pokemonData.map((pokemon, index) => (
@@ -187,4 +189,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;

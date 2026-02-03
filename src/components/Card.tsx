@@ -4,6 +4,7 @@ import Type from "./TypeCard";
 import type { TpokemonCardProps } from "./TCard";
 import { typeGradients } from "./TCard";
 import { ShoppingCart } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type TCardProps = {
   pokemon: TpokemonCardProps;
@@ -104,7 +105,10 @@ function Card(props: TCardProps) {
         className={` absolute backface-hidden w-full h-full transition-all duration-500 ${isFlipped ? "rotate-y-180" : "rotate-y-0 "}`}
       >
         <figure
-          className="rounded-2xl relative overflow-hidden outline-8 w-96  h-[550px] transition-all duration-500 transform-3d group-hover:transform-[rotateY(180deg)]"
+          onClick={() => {
+            setIsFlipped(!isFlipped);
+          }}
+          className="rounded-2xl relative overflow-hidden outline-8 w-96 cursor-pointer h-[550px] transition-all duration-500 transform-3d group-hover:transform-[rotateY(180deg)]"
           style={{
             backgroundColor: typeGradients.find(
               (type) => type.name === props.pokemon.apiTypes[0].name,
@@ -115,14 +119,12 @@ function Card(props: TCardProps) {
           }}
         >
           <div className="absolute flex w-full h-full justify-center items-center top-0 left-0">
-            <button
-              className="cursor-pointer bg-blue-900 px-4 py-2 rounded-md"
-              onClick={() => {
-                setIsFlipped(!isFlipped);
-              }}
+            <Link
+              to={`/pokemon/${props.pokemon.pokedexId}`}
+              className="cursor-pointer bg-blue-900 text-white! px-4 py-2 rounded-md"
             >
               Voir plus
-            </button>
+            </Link>
           </div>
           <picture className="">
             <img
